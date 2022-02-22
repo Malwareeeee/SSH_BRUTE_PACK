@@ -5,7 +5,7 @@ import threading
 
 def select():
 	print(Fore.LIGHTBLACK_EX + 'Program By Malware')
-	print(Fore.RED + "Select 1-4, 1 = 100 | 2 = 200 | 3 = 300 | etc.")
+	print(Fore.RED + "Select 1-4, 1 = 100 | 2 = 200 | 3 = 300 | 4 = 400 |")
 	dinp = input(Fore.RED + 'Enter Generated Amount: ')
 	if dinp == '1':
 		threading.Thread(target=search_for_ssh(),daemon=True).start()
