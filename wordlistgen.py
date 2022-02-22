@@ -29,7 +29,7 @@ def invalid():
 
 def continue_(ti):
 	time.sleep(1)
-	print(Fore.GREEN + 'Sorting Through %s | ST:200 |' %(ti))
+	print(Fore.GREEN + 'Sorting Through %s In %s | ST:200 |' %(ti,os.getcwd()))
 	print(Fore.GREEN + 'This May Take A Minute, Please Wait...')
 	threading.Thread(target=search(ti),daemon=True).start()
 
