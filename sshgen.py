@@ -55,7 +55,7 @@ def write_to_files():
 	time.sleep(1)
 	for i in ssh_success_list:
 		with open('SSHFILESAVE.txt','a') as f:
-			f.write("SSH_ADDR: %s"%(i))
+			f.write("%s"%(i))
 	time.sleep(1)
 	f.close()
 
