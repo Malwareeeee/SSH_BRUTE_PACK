@@ -97,7 +97,6 @@ def get_list():
 	time.sleep(1)
 	global success
 	success = []
-	skip = False
 	print(Fore.RED + 'Please Enter Your Address List, Format to .txt')
 	print(Fore.RED + "PUT THIS PY FILE IN THE DIRECTORY OF YOUR LIST")
 	global get_list_name
@@ -107,12 +106,10 @@ def get_list():
 		print(Fore.RED + 'Exiting..')
 		exit()
 	for i in os.listdir(os.getcwd()):
-		if '.txt' not in i:
-			skip = True
-			continue 
-		if skip:
-			skip = False
-		success.append(i)
+		if get_list_name == i:
+			success.append(i)
+		else:
+			pass
 	for i in success:
 		if get_list_name == i:
 			print(Fore.GREEN + 'Confirm %s In %s?' %(get_list_name,os.path.abspath(get_list_name)))
