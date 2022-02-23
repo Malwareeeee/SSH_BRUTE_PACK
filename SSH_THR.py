@@ -129,13 +129,13 @@ def get_list():
 
 def launch_screen():
 	time.sleep(1)
-	print(Fore.RED + figlet_format('		                     SSH_THR',font='bubble'))
+	print(Fore.RED + figlet_format('		                     			SSH_THR',font='bubble'))
 	print(Fore.LIGHTBLACK_EX + """
-				========================================
-				Project Developer: Malware
-				Version: 1.0 
-				Please Enter The Name Of Your Addr List
-				========================================
+		========================================
+		Project Developer: Malware
+		Version: 1.0 
+		Please Enter The Name Of Your Addr List
+		========================================
 				""")
 	get_list()
 
