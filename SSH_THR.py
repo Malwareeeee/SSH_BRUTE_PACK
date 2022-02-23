@@ -105,13 +105,15 @@ def get_list():
 		time.sleep(1)
 		print(Fore.RED + 'Exiting..')
 		exit()
+	else:
+		pass
 	for i in os.listdir(os.getcwd()):
 		if get_list_name == i:
 			success.append(i)
 		else:
 			pass
 	for i in success:
-		if get_list_name == i:
+		if i == get_list_name:
 			print(Fore.GREEN + 'Confirm %s In %s?' %(get_list_name,os.path.abspath(get_list_name)))
 			xcon = input(Fore.RED + 'ssh@thr:~$ ')
 			if xcon == 'y' or 'Y':
@@ -126,9 +128,9 @@ def get_list():
 
 def launch_screen():
 	time.sleep(1)
-	print(Fore.RED + figlet_format('		                     			SSH_THR',font='bubble'))
+	print(Fore.RED + figlet_format('		                     SSH_THR',font='bubble'))
 	print(Fore.LIGHTBLACK_EX + """
-		========================================
+                ========================================
 		Project Developer: Malware
 		Version: 1.0 
 		Please Enter The Name Of Your Addr List
