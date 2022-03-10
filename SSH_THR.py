@@ -1,4 +1,4 @@
-#SSH_THR | Build Version 1.3 | - No Potential Errors Currently | Possible Fixes {Regarding Class}
+#SSH_THR | Build Version 1.4 | - No Potential Errors Currently | Possible Fixes {Regarding Class}
 import paramiko 
 import time 
 from colorama import Fore 
@@ -151,7 +151,7 @@ def banner():
 	print(Fore.LIGHTBLACK_EX + """
     		========================================
 		Project Developer: Malware
-		Version: 1.2
+		Version: 1.4
 		Please Enter The Name Of Your Addr List
 		========================================
 				""")
