@@ -78,10 +78,9 @@ def try_addr_list_con(addr):
 	invalid_addr_list = []
 	op = open(addr,'r').readlines()
 	for i in op:
-		n12 = str(i.strip())
 		try:
 			s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-			s.connect((n12,22))
+			s.connect((i,22))
 			valid_addr_list.append(i)
 		except Exception:
 			invalid_addr_list.append(i)
