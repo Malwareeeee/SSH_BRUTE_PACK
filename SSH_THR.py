@@ -102,11 +102,11 @@ def try_addr_list_con(addr):
 			print(Fore.RED + 'One Or More Lists Are Invalid | Criteria Error |')
 						
 def validate_addr_list(addr):
-	for i in os.listdir(os.getcwd()):
-		if addr == i:
-			return True
-		else:
-			return False
+	fp = os.path.abspath(str(addr))
+	if os.path.exists(fp):
+		return True
+	else:
+		return False
 
 def enter_dir():
 	print(Fore.RED + 'Enter Directory Name, Not Path (Enter Filename Second)')
