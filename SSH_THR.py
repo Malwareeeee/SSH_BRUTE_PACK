@@ -49,13 +49,18 @@ def try_ssh_bruteforce():
 	end_count()
 			
 def get_user_pass_list():
-	time.sleep(1)
-	cri = 0
-	print(Fore.RED + 'Wait! We Need Your User and Pass List {Enter User List First}')
-	global l1
-	l1 = input(Fore.RED + 'ssh@thr:~$ ')
-	global l2
-	l2 = input(Fore.RED + 'ssh@thr:~$ ')
+	try:
+		time.sleep(1)
+		cri = 0
+		print(Fore.RED + 'Wait! We Need Your User and Pass List {Enter User List First}')
+		global l1
+		l1 = input(Fore.RED + 'ssh@thr:~$ ')
+		global l2
+		l2 = input(Fore.RED + 'ssh@thr:~$ ')
+	except KeyboardInterrupt:
+		print(Fore.RED + '|SSH_THR| - Closing.. |')
+		time.sleep(1.5)
+		exit()
 	fn = '.txt'
 	if fn in l1 and l2:
 		cri += 2
@@ -109,9 +114,14 @@ def validate_addr_list(addr):
 		return False
 
 def enter_dir():
-	print(Fore.RED + 'Enter Directory Name, Not Path (Enter Filename Second)')
-	enter_d = input(Fore.RED + 'ssh@thr:~$ ')
-	check_for_file = input(Fore.RED + 'ssh@thr:~$ ')
+	try:
+		print(Fore.RED + 'Enter Directory Name, Not Path (Enter Filename Second)')
+		enter_d = input(Fore.RED + 'ssh@thr:~$ ')
+		check_for_file = input(Fore.RED + 'ssh@thr:~$ ')
+	except KeyboardInterrupt:
+		print(Fore.RED + '|SSH_THR| - Closing.. |')
+		time.sleep(1.5)
+		exit()
 	firstpath = os.path.abspath(__file__)
 	flen = len(firstpath) - len(__file__)
 	fp = firstpath[:flen]
