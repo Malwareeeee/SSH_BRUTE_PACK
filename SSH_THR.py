@@ -43,7 +43,7 @@ def try_ssh_bruteforce():
 				print(Fore.GREEN + 'Valid Attempt On %s:%s with %s:%s' %(i,port,n1,n2))    # < -- Requires Fixing
 				validatt.append('%s:%s - %s:%s - CON ' %(i,port,n1,n2))
 			except Exception:
-				print(Fore.RED + 'Invalid Attempt On %s:%s with %s:%s,%s' %(i,port,n1,n2))
+				print(Fore.RED + 'Invalid Attempt On %s:%s with %s:%s' %(i,port,n1,n2))
 				invalidatt.append('%s:%s - %s:%s - CONERR' %(i,port,n1,n2))
 	time.sleep(1)
 	end_count()
